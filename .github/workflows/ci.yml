@@ -36,4 +36,4 @@ jobs:
     - name: Check if the git repository is clean
       run: exit $( git status --porcelain --untracked-files=no | head -255 | wc -l )
     - run: npm run lint
-    - run: ./build-deploy.sh -v ${{ github.event.inputs.version }} -b ${{ secrets.BUCKET }}
+    - run: ./build-deploy.sh -v ${{ env.VERSION }} -b ${{ secrets.BUCKET }}
