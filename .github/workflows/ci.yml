@@ -1,13 +1,30 @@
 name: Simple CI
 
-on: [pull_request]
+on:
+  # push:
+  #   branches:
+  #     - feature/*
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'This is version we want to deploy to'
+        required: true
 
 jobs:
   run-ci:
     name: Build Frontend
+    environment: TRIALIST3_PRODUCTION
     runs-on: ubuntu-latest
+    env:
+      REGION: us-east-1
+      VERSION: v0.0.2
     steps:
     - uses: actions/checkout@v2
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.ACCESS_KEY }}
+        aws-region: ${{ env.REGION }}
     - uses: actions/setup-node@v1
       with:
         node-version: '16.x'
@@ -19,4 +36,4 @@ jobs:
     - name: Check if the git repository is clean
       run: exit $( git status --porcelain --untracked-files=no | head -255 | wc -l )
     - run: npm run lint
-    - run: make
+    - run: ./build-deploy.sh -v ${{ github.event.inputs.version }} -b ${{ secrets.BUCKET }}
