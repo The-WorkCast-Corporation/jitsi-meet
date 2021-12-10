@@ -1,0 +1,39 @@
+---
+- name: Test name
+  hosts: all
+  tasks:
+  - name: Get jitsi meet from s3
+    amazon.aws.aws_s3:
+      bucket: "{{ BUCKET_LOCATION }}"
+      object: "{{ OBJECT_LOCATION }}"
+      dest: /tmp/jm.zip
+      mode: get
+      overwrite: different
+    tags:
+      - workcast_assets
+  - name: Check if output of unzip exists
+    stat: path=/tmp/home/ubuntu/builds/jitsi-meet
+    register: jmtmp
+    tags:
+      - workcast_assets
+  - name: Delete content of jitsi meet tmp directory
+    when: jmtmp.stat.exists
+    file:
+      state: absent
+      path: /tmp/home/ubuntu/builds/jitsi-meet
+  - name: Unarchive jitsi meet
+    unarchive:
+      src: /tmp/jm.zip
+      dest: /tmp
+      creates: /tmp/home/ubuntu/builds/jitsi-meet
+      remote_src: yes
+    tags:
+      - workcast_assets
+  - name: Delete content of jitsi meet directory
+    file:
+      state: absent
+      path: /usr/share/jitsi-meet/
+  - name: Move output of zip if still there.
+    command: mv /tmp/home/ubuntu/builds/jitsi-meet /usr/share
+    tags:
+      - workcast_assets
