@@ -17,7 +17,7 @@ do
 done
 
 npm install
-make build
+make compile
 make deploy
 zip -r $LOCAL_BUILD .
 aws s3 cp "${LOCAL_BUILD}" "s3://${BUCKET_LOCATION}/jitsi/${VERSION}/${LOCAL_BUILD}"
