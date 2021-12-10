@@ -194,12 +194,17 @@ export default class AbstractStartLiveStreamDialog<P: Props>
      */
     _onSubmit() {
         const { broadcasts, selectedBoundStreamID } = this.state;
-        const key
-            = (this.state.streamKey || this.props._streamKey || '').trim();
 
-        if (!key) {
-            return false;
-        }
+        const wowzaStreamUrl = '10.0.0.1/app/streamname'
+        var newkey = (this.state.streamKey || this.props._streamKey || '').trim();
+        if (this.state.streamKey) {
+            newkey = wowzaStreamUrl;
+        } else if (this.props._streamKey) {
+            newkey = wowzaStreamUrl;
+        } else
+            newkey = wowzaStreamUrl;
+
+        const key = (this.state.streamKey || this.props._streamKey || '').trim();
 
         let selectedBroadcastID = null;
 
