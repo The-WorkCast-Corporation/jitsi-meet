@@ -12,7 +12,7 @@
     tags:
       - workcast_assets
   - name: Check if output of unzip exists
-    stat: path=/tmp/home/ubuntu/builds/jitsi-meet
+    stat: path=/tmp/jitsi-meet
     register: jmtmp
     tags:
       - workcast_assets
@@ -20,12 +20,11 @@
     when: jmtmp.stat.exists
     file:
       state: absent
-      path: /tmp/home/ubuntu/builds/jitsi-meet
+      path: /tmp/jitsi-meet
   - name: Unarchive jitsi meet
     unarchive:
       src: /tmp/jm.zip
-      dest: /tmp
-      creates: /tmp/home/ubuntu/builds/jitsi-meet
+      dest: /tmp/jitsi-meet
       remote_src: yes
     tags:
       - workcast_assets
@@ -34,6 +33,6 @@
       state: absent
       path: /usr/share/jitsi-meet/
   - name: Move output of zip if still there.
-    command: mv /tmp/home/ubuntu/builds/jitsi-meet /usr/share
+    command: mv /tmp/jitsi-meet /usr/share
     tags:
       - workcast_assets
