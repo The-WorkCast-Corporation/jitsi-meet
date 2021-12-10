@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+.display-avatar-only {
+    display: none !important;
+}
+
 #layout_wrapper {
     display: flex;
     height: 100%;

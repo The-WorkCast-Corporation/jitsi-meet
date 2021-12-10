@@ -1,0 +1,33 @@
+---
+- name: Test name
+  hosts: all
+  tasks:
+  - name: Get jitsi meet from s3
+    amazon.aws.aws_s3:
+      bucket: "{{ BUCKET_LOCATION }}"
+      object: "{{ OBJECT_LOCATION }}"
+      dest: /tmp/jm.zip
+      mode: get
+      overwrite: different
+    tags:
+      - workcast_assets
+  - name: Remove all file from existing repo
+    shell: rm -rf /usr/share/jitsi-meet/*
+    tags:
+      - workcast_assets
+  - name: Unarchive jitsi meet
+    unarchive:
+      src: /tmp/jm.zip
+      dest: /usr/share/jitsi-meet
+
+      group: root
+      owner: root
+      mode: 0755
+    tags:
+      - workcast_assets
+  - name: Change file and folder permissions
+    file: dest=/usr/share/jitsi-meet owner=root group=root mode=u=rwx,g=rx,o=rx recurse=yes
+  - name: Restart Nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
