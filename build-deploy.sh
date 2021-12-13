@@ -4,7 +4,7 @@ PLAYBOOK_FILE="./jitsi-build.yml"
 LOCAL_BUILD="jm.zip"
 REGION="us-east-1"
 TAG_TYPE="jitsi"
-TAG_CLIENT="trialist3"
+TAG_CLIENT="trialist2"
 
 while getopts v:b:l:c: flag
 do
@@ -30,28 +30,27 @@ COMMAND_ID=`aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --targ
 
 # echo $COMMAND_ID
 
-# while true;
-# do
-#   IS_INCOMPLETE=false
-#   RESPONSES=(`aws ssm list-command-invocations --command-id $COMMAND_ID --details --query "CommandInvocations[*].CommandPlugins[*].ResponseCode[]" --region $REGION --output text`)
-#   OUTPUTS=(`aws ssm list-command-invocations --command-id $COMMAND_ID --details --query "CommandInvocations[*].CommandPlugins[*].Output[]" --region $REGION --output text`)
-#   # for out in "${OUTPUTS[@]}"
-#   # do
-#   #   echo "$out"
-#   # done
-#   echo ${RESPONSES[@]}
-#   for res in "${RESPONSES[@]}"
-#   do
-#     echo "$res"
-#     if [ "$res" != "0" ]; then
-#       echo "Waiting..."
-#       IS_INCOMPLETE=true
-#     fi
-#   done
-#   if [ "$IS_INCOMPLETE" = false ] ; then
-#     echo "Success!"
-#     break
-#   else
-#     sleep 5s
-#   fi
-# done
+while true;
+do
+  IS_INCOMPLETE=false
+  RESPONSES=(`aws ssm list-command-invocations --command-id $COMMAND_ID --details --query "CommandInvocations[*].CommandPlugins[*].ResponseCode[]" --region $REGION --output text`)
+  OUTPUTS=(`aws ssm list-command-invocations --command-id $COMMAND_ID --details --query "CommandInvocations[*].CommandPlugins[*].Output[]" --region $REGION --output text`)
+  # for out in "${OUTPUTS[@]}"
+  # do
+  #   echo "$out"
+  # done
+  # echo ${RESPONSES[@]}
+  for res in "${RESPONSES[@]}"
+  do
+    if [ "$res" != "0" ]; then
+      echo "Waiting..."
+      IS_INCOMPLETE=true
+    fi
+  done
+  if [ "$IS_INCOMPLETE" = false ] ; then
+    echo "Success!"
+    break
+  else
+    sleep 5s
+  fi
+done
