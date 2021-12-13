@@ -18,6 +18,6 @@
       remote_src: yes
       group: root
       owner: root
-      mode: 0644
+      mode: 750
     tags:
       - workcast_assets
