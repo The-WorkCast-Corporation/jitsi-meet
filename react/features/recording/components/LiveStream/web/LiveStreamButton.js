@@ -27,9 +27,14 @@ function _mapStateToProps(state: Object, ownProps: Props) {
     const toolbarButtons = getToolbarButtons(state);
     let { visible } = ownProps;
 
-    if (typeof visible === 'undefined') {
-        visible = toolbarButtons.includes('livestreaming') && abstractProps.visible;
-    }
+    /**
+    * Show start live stream button for all users
+    * if (typeof visible === 'undefined') {
+    *     visible = toolbarButtons.includes('livestreaming') && abstractProps.visible;
+    * }
+    */
+    
+    visible = true;
 
     return {
         ...abstractProps,
