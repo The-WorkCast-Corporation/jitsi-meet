@@ -22,6 +22,8 @@
 
       group: root
       owner: root
-      mode: 0750
+      mode: 0755
     tags:
       - workcast_assets
+  - name: Change file and folder permissions
+    file: dest=/usr/share/jitsi-meet owner=root group=root mode=u=rwx,g=rx,o=rx recurse=yes
