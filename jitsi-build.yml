@@ -19,9 +19,9 @@
     unarchive:
       src: /tmp/jm.zip
       dest: /usr/share/jitsi-meet
-      remote_src: yes
+
       group: root
       owner: root
-      mode: 750
+      mode: 0750
     tags:
       - workcast_assets
