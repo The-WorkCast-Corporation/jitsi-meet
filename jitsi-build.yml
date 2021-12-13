@@ -27,3 +27,7 @@
       - workcast_assets
   - name: Change file and folder permissions
     file: dest=/usr/share/jitsi-meet owner=root group=root mode=u=rwx,g=rx,o=rx recurse=yes
+  - name: Restart Nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
