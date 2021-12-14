@@ -12,7 +12,7 @@ on:
 
 jobs:
   deployment-trialist3:
-    name: Build Frontend
+    name: Trialist 3
     environment: TRIALIST3_PRODUCTION
     runs-on: ubuntu-latest
     env:
@@ -31,7 +31,7 @@ jobs:
         node-version: '16.x'
     - run: ./build-deploy.sh -v ${{ env.VERSION }} -b ${{ secrets.BUCKET }} -c ${{ env.TAG_CLIENT }}
   deployment-trialist2:
-    name: Build Frontend
+    name: Trialist 2
     environment: TRIALIST2_PRODUCTION
     runs-on: ubuntu-latest
     env:
