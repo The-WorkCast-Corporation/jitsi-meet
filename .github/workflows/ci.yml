@@ -11,13 +11,14 @@ on:
         required: true
 
 jobs:
-  run-ci:
+  deployment-trialist3:
     name: Build Frontend
     environment: TRIALIST3_PRODUCTION
     runs-on: ubuntu-latest
     env:
       REGION: us-east-1
       VERSION: v0.0.3
+      TAG_CLIENT: trialist3
     steps:
     - uses: actions/checkout@v2
     - uses: aws-actions/configure-aws-credentials@v1
@@ -28,4 +29,23 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '16.x'
-    - run: ./build-deploy.sh -v ${{ env.VERSION }} -b ${{ secrets.BUCKET }}
+    - run: ./build-deploy.sh -v ${{ env.VERSION }} -b ${{ secrets.BUCKET }} -c ${{ env.TAG_CLIENT }}
+  deployment-trialist2:
+    name: Build Frontend
+    environment: TRIALIST2_PRODUCTION
+    runs-on: ubuntu-latest
+    env:
+      REGION: us-east-1
+      VERSION: v0.0.3
+      TAG_CLIENT: trialist2
+    steps:
+    - uses: actions/checkout@v2
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.ACCESS_KEY }}
+        aws-region: ${{ env.REGION }}
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - run: ./build-deploy.sh -v ${{ env.VERSION }} -b ${{ secrets.BUCKET }} -c ${{ env.TAG_CLIENT }}
