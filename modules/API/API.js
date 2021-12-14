@@ -332,6 +332,22 @@ function initCommands() {
             sendAnalytics(createApiEvent('avatar.url.changed'));
             APP.conference.changeLocalAvatarUrl(avatarUrl);
         },
+        'startBroadcast': streamingUrl => {
+            sendAnalytics(createApiEvent('broadcast.started'));
+            //const { conference }
+            //    = APP.store.getState()['features/base/conference'];
+            APP.store.getState()["features/base/conference"].conference.startRecording(
+                {
+                    broadcastId: null,
+                    mode: "stream",
+                    streamId: streamingUrl
+                }, function(){console.log("success")}, function(){console.log("fail")});
+        },
+        'stopBroadcast': () => {
+            sendAnalytics(createApiEvent('broadcast.stopped'));
+            let sessionId = APP.store.getState()["features/recording"].sessionDatas[0].id;
+            APP.store.getState()["features/base/conference"].conference.stopRecording(sessionId);
+        },        
         'send-chat-message': (message, to, ignorePrivacy = false) => {
             logger.debug('Send chat message command received');
             if (to) {
