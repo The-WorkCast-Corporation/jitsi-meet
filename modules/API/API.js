@@ -334,7 +334,7 @@ function initCommands() {
         },
         'startBroadcast': streamingUrl => {
             sendAnalytics(createApiEvent('broadcast.started'));
-            logger.debug('broadcast.started ${streamingUrl}');
+            logger.info('broadcast.started ${streamingUrl}');
             //const { conference }
             //    = APP.store.getState()['features/base/conference'];
             APP.store.getState()["features/base/conference"].conference.startRecording(
@@ -342,13 +342,13 @@ function initCommands() {
                     broadcastId: null,
                     mode: "stream",
                     streamId: streamingUrl
-                }, function(){console.log("success"); logger.debug('startBroadcast success ${streamingUrl}');}, function(){console.log("fail"); logger.error('startBroadcast fail ${streamingUrl}');});
+                }, function(){console.log("success"); logger.info('startBroadcast success ${streamingUrl}');}, function(){console.log("fail"); logger.error('startBroadcast fail ${streamingUrl}');});
         },
         'stopBroadcast': () => {
             sendAnalytics(createApiEvent('broadcast.stopped'));
-            logger.debug('broadcast.stopping');
+            logger.info('broadcast.stopping');
             let sessionId = APP.store.getState()["features/recording"].sessionDatas[0].id;
-            logger.debug('broadcast.stopping for ${sessionId}');
+            logger.info('broadcast.stopping for ${sessionId}');
             APP.store.getState()["features/base/conference"].conference.stopRecording(sessionId);
         },        
         'send-chat-message': (message, to, ignorePrivacy = false) => {
