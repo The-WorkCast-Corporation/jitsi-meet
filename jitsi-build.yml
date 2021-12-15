@@ -12,7 +12,7 @@
     tags:
       - workcast_assets
   - name: Remove all file from existing repo
-    shell: find /usr/share/jitsi-meet -mindepth 1 ! -regex '^/usr/share/jitsi-meet/prosody-plugins\(/.*\)?' -delete
+    shell: rm -rf /usr/share/jitsi-meet/*
     tags:
       - workcast_assets
   - name: Unarchive jitsi meet
