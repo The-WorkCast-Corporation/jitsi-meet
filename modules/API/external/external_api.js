@@ -740,6 +740,33 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
     }
 
     /**
+     * Send a request to start a live broadcast
+     *
+     * @param {string} streamingUrl - The Url used for the stream.
+     * @returns {void}
+     */
+     startBroadcast(streamingUrl) {
+
+        this._transport.sendEvent({
+            data: [streamingUrl],
+            name: 'startBroadcast'
+        });
+    }
+
+        /**
+     * Send a request to stop a live broadcast
+     *
+     * @returns {void}
+     */
+    stopBroadcast() {
+
+        this._transport.sendEvent({
+            data: [],
+            name: 'stopBroadcast'
+        });
+    }    
+
+    /**
      * Executes commands. The available commands are:
      * {@code displayName} - Sets the display name of the local participant to
      * the value passed in the arguments array.
