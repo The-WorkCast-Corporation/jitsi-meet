@@ -14,7 +14,8 @@ import {
     isParticipantModerator,
     getLocalParticipant,
     getRemoteParticipantsSorted,
-    getRaiseHandsQueue
+    getRaiseHandsQueue,
+    shouldRenderParticipantVideo
 } from '../base/participants/functions';
 import { toState } from '../base/redux';
 import { isInBreakoutRoom } from '../breakout-rooms/functions';
