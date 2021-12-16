@@ -211,9 +211,7 @@ export const shouldRenderInviteButton = (state: Object) => {
 export function getSortedParticipantIds(stateful: Object | Function): Array<string> {
     const { id } = getLocalParticipant(stateful);
     const remoteParticipants = getRemoteParticipantsSorted(stateful);
-    const remoteParticipantsWithCameras = remoteParticipants.filter((participant) => {
-        return shouldRenderParticipantVideo(state, participant);
-    });
+    const remoteParticipantsWithCameras = remoteParticipants.filter((participant) => shouldRenderParticipantVideo(stateful, participant));
     const reorderedParticipants = new Set(remoteParticipantsWithCameras);
     const raisedHandParticipants = getRaiseHandsQueue(stateful).map(({ id: particId }) => particId);
     const remoteRaisedHandParticipants = new Set(raisedHandParticipants || []);
