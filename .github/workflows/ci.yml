@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feat/*
   workflow_dispatch:
     inputs:
       tag:
