@@ -15,11 +15,7 @@ import {
     getLocalParticipant,
     getRemoteParticipantsSorted,
     getRaiseHandsQueue,
-    
 } from '../base/participants/functions';
-import {
-    isVideoPlayable
-} from '../filmstrip/functions';
 import { toState } from '../base/redux';
 import { isInBreakoutRoom } from '../breakout-rooms/functions';
 
@@ -215,8 +211,7 @@ export const shouldRenderInviteButton = (state: Object) => {
 export function getSortedParticipantIds(stateful: Object | Function): Array<string> {
     const { id } = getLocalParticipant(stateful);
     const remoteParticipants = getRemoteParticipantsSorted(stateful);
-    const remoteParticipantsWithCameras = remoteParticipants.filter(participant => isVideoPlayable(stateful, participant));
-    const reorderedParticipants = new Set(remoteParticipantsWithCameras);
+    const reorderedParticipants = new Set(remoteParticipants);
     const raisedHandParticipants = getRaiseHandsQueue(stateful).map(({ id: particId }) => particId);
     const remoteRaisedHandParticipants = new Set(raisedHandParticipants || []);
     const dominantSpeaker = getDominantSpeakerParticipant(stateful);

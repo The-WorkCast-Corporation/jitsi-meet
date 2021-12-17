@@ -630,6 +630,8 @@ function _mapStateToProps(state) {
     }
     }
 
+    console.log(remoteParticipants);
+
     return {
         _className: className,
         _columns: gridDimensions.columns,
@@ -640,7 +642,7 @@ function _mapStateToProps(state) {
         _iAmRecorder: Boolean(iAmRecorder),
         _isFilmstripButtonEnabled: isButtonEnabled('filmstrip', state),
         _remoteParticipantsLength: remoteParticipants.length,
-        _remoteParticipants: remoteParticipants,
+        _remoteParticipants: remoteParticipants.slice(0, 2),
         _rows: gridDimensions.rows,
         _thumbnailWidth: _thumbnailSize?.width,
         _thumbnailHeight: _thumbnailSize?.height,
