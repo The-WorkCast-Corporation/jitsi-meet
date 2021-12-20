@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGION: us-east-1
-      VERSION: v0.0.3
+      VERSION: v0.0.4
       TAG_CLIENT: trialist3
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGION: us-east-1
-      VERSION: v0.0.3
+      VERSION: v0.0.4
       TAG_CLIENT: trialist2
     steps:
     - uses: actions/checkout@v2
