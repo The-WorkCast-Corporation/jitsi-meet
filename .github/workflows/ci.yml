@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - feat/*
+      - release/*/*
   workflow_dispatch:
     inputs:
       tag:
